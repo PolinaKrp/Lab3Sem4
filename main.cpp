@@ -17,7 +17,7 @@ void clear_monitor()
 int check()
 {
     int number;
-    while (!(cin >> number) || (cin.peek() != '\n'))
+    while (!(cin >> number) || (cin.peek() != '\n')) //cin.peek() смотрит на пропуск следующего символ в потоке 
     {
         cin.clear();
         while (cin.get() != '\n');
@@ -39,11 +39,12 @@ int muny()
     cout << "8 - order" << endl;
     cout << "9 - walk" << endl;
     cout << "10 - dijkstra" << endl;
-    cout << "11 - print" << endl;
-    cout << "12 - go out" << endl;
+    cout << "11 - find emergency room" << endl;
+    cout << "12 - print" << endl;
+    cout << "13 - go out" << endl;
     cout << "Operation №";
     int n = check();
-    while (n > 12 || n <= 0)
+    while (n > 13 || n <= 0)
     {
         cout << "Incorrect value" << endl << "Operation №";
         n = check();
@@ -172,6 +173,11 @@ void dijkstra(Graph& obj)
     getchar();
 }
 
+void emergency(Graph& obj)
+{
+    cout << "emergency room is " << obj.emergency();
+    getchar();
+}
 
 int main()
 {
@@ -186,10 +192,10 @@ int main()
     g.add_edge(4, 6, 6);
 
 
-    void (*operatoin[12])(Graph & obj) = { add_vertex,add_edge,find_vertex,find_edge,delete_vertex,delete_edge,degree,order,walk,dijkstra,print };
+    void (*operatoin[12])(Graph & obj) = { add_vertex,add_edge,find_vertex,find_edge,delete_vertex,delete_edge,degree,order,walk,dijkstra,emergency,print };
     int n = muny();
     getchar();
-    while (n < 12)
+    while (n < 13)
     {
         try {
             operatoin[n - 1](g);
