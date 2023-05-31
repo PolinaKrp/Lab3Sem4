@@ -189,7 +189,7 @@ int main()
     void (*operatoin[12])(Graph & obj) = { add_vertex,add_edge,find_vertex,find_edge,delete_vertex,delete_edge,degree,order,walk,dijkstra,print };
     int n = muny();
     getchar();
-    while (n < 13)
+    while (n < 12)
     {
         try {
             operatoin[n - 1](g);
