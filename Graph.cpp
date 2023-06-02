@@ -5,7 +5,6 @@ Graph:: ~Graph()
     graph.clear();
 }
 
-
 int Graph::find_vertex(int value)
 {
     if (graph.size() == 0) return -1;
@@ -18,7 +17,6 @@ int Graph::find_vertex(int value)
     return -1;
 }
 
-
 void Graph::add_vertex(int id)
 {
     if (find_vertex(id) != -1) throw EUncorrectIndex();
@@ -26,8 +24,7 @@ void Graph::add_vertex(int id)
     graph.push_back(v);
 }
 
-
-bool Graph::remove_vertex(int id)
+bool Graph::remove_vertex(int id)  
 {
     int index = find_vertex(id);
     if (index == -1) throw EUnpossibal();
@@ -41,7 +38,6 @@ bool Graph::remove_vertex(int id)
     graph.erase(graph.begin() + index);
     return true;
 }
-
 
 bool Graph::find_edge(int from, int to)
 {
@@ -58,7 +54,7 @@ bool Graph::find_edge(int from, int to)
     return false;
 }
 
-int Graph::find_index_edge(int from, int to)
+int Graph::find_index_edge(int from, int to)  
 {
     if (graph.size() == 0) return false;
     int i_from = find_vertex(from);
@@ -73,7 +69,7 @@ int Graph::find_index_edge(int from, int to)
     return false;
 }
 
-void Graph::add_edge(int from, int to, int weight)
+void Graph::add_edge(int from, int to, int weight) 
 {
     int i_from = find_vertex(from);
     int i_to = find_vertex(to);
@@ -83,6 +79,7 @@ void Graph::add_edge(int from, int to, int weight)
     Edge tmp(to, weight);
     graph[i_from].edges.push_back(tmp);
 }
+
 bool Graph::remove_edge(int from, int to)
 {
     int i_from = find_vertex(from);
@@ -94,8 +91,7 @@ bool Graph::remove_edge(int from, int to)
     return true;
 }
 
-
-void Graph::print()
+void Graph::print() 
 {
     for (auto i = graph.begin(); i != graph.end(); i++)
     {
@@ -119,8 +115,7 @@ vector<Edge> Graph::edges(int from)
 int Graph::order()
 {
     return int(graph.size());
-}//порядок число вершин
-
+}
 
 int Graph::degree(int id)
 {
@@ -149,7 +144,7 @@ void Graph::exp(vector<int>& result)
     return;
 }
 
-vector<Vertex> Graph::create_mat()
+vector<Vertex> Graph::create_mat()  
 {
     vector<Vertex> w;
     for (auto i = graph.begin(); i != graph.end(); i++)
@@ -200,7 +195,6 @@ vector<int> Graph::shortest_path(int from, int to, int& weight)
     weight = result[i_to];
     return way[i_to];
 }
-//обход
 
 void Graph::clean_color()
 {
@@ -209,6 +203,7 @@ void Graph::clean_color()
         i->color = 0;
     }
 }
+
 void Graph::walk(int from)
 {
     int index = find_vertex(from);
@@ -227,9 +222,8 @@ void Graph::walk(int from)
     graph[index].color = 2;
 }
 
-vector<int> Graph::Dijkstra(int S, vector<Vertex>& matrix, int N, vector<vector<int>>& way)
+vector<int> Graph::Dijkstra(int S, vector<Vertex>& matrix, int N, vector<vector<int>>& way)  //+++++
 {
-    //    s индекс начала
     vector<int> path;
     way.resize(N);
 
@@ -246,7 +240,7 @@ vector<int> Graph::Dijkstra(int S, vector<Vertex>& matrix, int N, vector<vector<
     {
         int min_weight = INT_MAX;
         int ID_min_weight = -1;
-        for (int j = 0; j < N; j++)
+        for (int j = 0; j < N; j++) 
         {
             if (valid[j] && weight[j] < min_weight)
             {
@@ -256,12 +250,12 @@ vector<int> Graph::Dijkstra(int S, vector<Vertex>& matrix, int N, vector<vector<
         }
         if (ID_min_weight == -1)
             break;
-        path.push_back(matrix[ID_min_weight].id);
-        for (int z = 0; z < N; z++)
+        path.push_back(matrix[ID_min_weight].id); 
+        for (int z = 0; z < N; z++) 
         {
-            if (weight[ID_min_weight] + matrix[ID_min_weight].edges[z].weight < weight[z])
-            {
-                weight[z] = weight[ID_min_weight] + matrix[ID_min_weight].edges[z].weight;
+            if (weight[ID_min_weight] + matrix[ID_min_weight].edges[z].weight < weight[z]) 
+            {                                                                           
+                weight[z] = weight[ID_min_weight] + matrix[ID_min_weight].edges[z].weight; 
                 int k = matrix[ID_min_weight].edges[z].id;
                 way[z] = path;
                 way[z].push_back(k);
@@ -272,7 +266,7 @@ vector<int> Graph::Dijkstra(int S, vector<Vertex>& matrix, int N, vector<vector<
     return weight;
 }
 
-int Graph::emergency()
+int Graph::emergency() 
 {
     if (graph.size() == 0) throw EUnpossibal();
 

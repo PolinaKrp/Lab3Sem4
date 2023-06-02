@@ -7,7 +7,7 @@ using namespace std;
 
 void clear_monitor()
 {
-    for (int i = 0; i < 31; i++)
+    for (int i = 0; i < 3; i++)
     {
         cout << endl;
     }
@@ -17,7 +17,7 @@ void clear_monitor()
 int check()
 {
     int number;
-    while (!(cin >> number) || (cin.peek() != '\n')) //cin.peek() смотрит на пропуск следующего символ в потоке 
+    while (!(cin >> number) || (cin.peek() != '\n'))
     {
         cin.clear();
         while (cin.get() != '\n');
@@ -162,7 +162,7 @@ void dijkstra(Graph& obj)
         cout << "has not way";
     else
     {
-        cout << "WEight = " << weight << endl;
+        cout << "Weight = " << weight << endl;
         cout << "Way:" << endl;
         for (auto i : res)
         {
@@ -175,22 +175,13 @@ void dijkstra(Graph& obj)
 
 void emergency(Graph& obj)
 {
-    cout << "emergency room is " << obj.emergency();
+    cout << "Emergency room is " << obj.emergency();
     getchar();
 }
 
 int main()
 {
     Graph g;
-    g.add_vertex(6);
-    g.add_vertex(7);
-    g.add_vertex(4);
-    g.add_vertex(1);
-    g.add_edge(7, 1, 1);
-    g.add_edge(6, 4, 2);
-    g.add_edge(4, 7, 20);
-    g.add_edge(4, 6, 6);
-
 
     void (*operatoin[12])(Graph & obj) = { add_vertex,add_edge,find_vertex,find_edge,delete_vertex,delete_edge,degree,order,walk,dijkstra,emergency,print };
     int n = muny();
