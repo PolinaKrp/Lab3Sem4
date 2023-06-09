@@ -31,8 +31,8 @@ int muny()
     cout << "To press.." << endl;
     cout << "1 - add vertex" << endl;
     cout << "2 - add edge" << endl;
-    cout << "3 - find vertex" << endl;
-    cout << "4 - find edge" << endl;
+    cout << "3 - has vertex" << endl;
+    cout << "4 - has edge" << endl;
     cout << "5 - delete vertex" << endl;
     cout << "6 - delete edge" << endl;
     cout << "7 - degree of vertex" << endl;
@@ -75,11 +75,11 @@ void add_edge(Graph& obj)
 }
 
 
-void find_vertex(Graph& obj)
+void has_vertex(Graph& obj)
 {
     cout << "What vertex?" << endl;
     int id = check();
-    if (obj.find_vertex(id) != -1)
+    if (obj.has_vertex(id) != -1)
         cout << "vertex is" << endl;
     else
         cout << "vertex is not";
@@ -87,14 +87,14 @@ void find_vertex(Graph& obj)
 }
 
 
-void find_edge(Graph& obj)
+void has_edge(Graph& obj)
 {
     cout << "What edge?" << endl;
     cout << "from: ";
     int from = check();
     cout << "to: ";
     int to = check();
-    if (obj.find_edge(from, to))
+    if (obj.has_edge(from, to))
         cout << "edge is" << endl;
     else
         cout << "edge is not";
@@ -183,7 +183,7 @@ int main()
 {
     Graph g;
 
-    void (*operatoin[12])(Graph & obj) = { add_vertex,add_edge,find_vertex,find_edge,delete_vertex,delete_edge,degree,order,walk,dijkstra,emergency,print };
+    void (*operatoin[12])(Graph & obj) = { add_vertex,add_edge,has_vertex,has_edge,delete_vertex,delete_edge,degree,order,walk,dijkstra,emergency,print };
     int n = muny();
     getchar();
     while (n < 13)

@@ -6,12 +6,14 @@
 #include <iterator>
 #include "ESetErrors.h"
 #include <algorithm>
+template<typename vertex_type
+
 using namespace std;
 
 struct Edge 
 {
     float weight; 
-    int id; 
+    vertex_type id;
     Edge(int to_id, float new_weight)
     {
         weight = new_weight;
@@ -36,13 +38,13 @@ private:
 public:
     ~Graph();
 
-    int find_vertex(int id);
+    int has_vertex(int id);
     void add_vertex(int id);
     bool remove_vertex(int id);
 
     void add_edge(int from, int to, int weight);
     bool remove_edge(int from, int to);
-    bool find_edge(int from, int to);
+    bool has_edge(int from, int to);
     int find_index_edge(int from, int to);
     void print();
 

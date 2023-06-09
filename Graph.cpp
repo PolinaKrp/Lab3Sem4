@@ -5,7 +5,7 @@ Graph:: ~Graph()
     graph.clear();
 }
 
-int Graph::find_vertex(int value)
+int Graph::has_vertex(int value)
 {
     if (graph.size() == 0) return -1;
 
@@ -19,19 +19,19 @@ int Graph::find_vertex(int value)
 
 void Graph::add_vertex(int id)
 {
-    if (find_vertex(id) != -1) throw EUncorrectIndex();
+    if (has_vertex(id) != -1) throw EUncorrectIndex();
     Vertex v(id);
     graph.push_back(v);
 }
 
 bool Graph::remove_vertex(int id)  
 {
-    int index = find_vertex(id);
+    int index = has_vertex(id);
     if (index == -1) throw EUnpossibal();
 
     for (auto i = graph.begin(); i != graph.end(); i++)
     {
-        if (find_edge(i->id, id))
+        if (has_edge(i->id, id))
             remove_edge(i->id, id);
     }
     graph[index].edges.clear();
@@ -39,11 +39,11 @@ bool Graph::remove_vertex(int id)
     return true;
 }
 
-bool Graph::find_edge(int from, int to)
+bool Graph::has_edge(int from, int to)
 {
     if (graph.size() == 0) return false;
-    int i_from = find_vertex(from);
-    int i_to = find_vertex(to);
+    int i_from = has_vertex(from);
+    int i_to = has_vertex(to);
     if (i_to == -1 || i_from == -1) throw EUnpossibal();
 
     for (auto i = graph[i_from].edges.begin(); i != graph[i_from].edges.end(); i++)
@@ -57,8 +57,8 @@ bool Graph::find_edge(int from, int to)
 int Graph::find_index_edge(int from, int to)  
 {
     if (graph.size() == 0) return false;
-    int i_from = find_vertex(from);
-    int i_to = find_vertex(to);
+    int i_from = has_vertex(from);
+    int i_to = has_vertex(to);
     if (i_to == -1 || i_from == -1) throw EUnpossibal();
 
     for (auto i = graph[i_from].edges.begin(); i != graph[i_from].edges.end(); i++)
@@ -71,10 +71,10 @@ int Graph::find_index_edge(int from, int to)
 
 void Graph::add_edge(int from, int to, int weight) 
 {
-    int i_from = find_vertex(from);
-    int i_to = find_vertex(to);
+    int i_from = has_vertex(from);
+    int i_to = has_vertex(to);
     if (i_to == -1 || i_from == -1) throw EUnpossibal();
-    if (find_edge(from, to)) throw EUncorrectIndex();
+    if (has_edge(from, to)) throw EUncorrectIndex();
 
     Edge tmp(to, weight);
     graph[i_from].edges.push_back(tmp);
@@ -82,10 +82,10 @@ void Graph::add_edge(int from, int to, int weight)
 
 bool Graph::remove_edge(int from, int to)
 {
-    int i_from = find_vertex(from);
-    int i_to = find_vertex(to);
+    int i_from = has_vertex(from);
+    int i_to = has_vertex(to);
     if (i_to == -1 || i_from == -1) throw EUnpossibal();
-    if (!find_edge(from, to)) throw EUnpossibal();
+    if (!has_edge(from, to)) throw EUnpossibal();
 
     graph[i_from].edges.erase(graph[i_from].edges.begin() + i_to);
     return true;
@@ -106,7 +106,7 @@ void Graph::print()
 
 vector<Edge> Graph::edges(int from)
 {
-    int index = find_vertex(from);
+    int index = has_vertex(from);
     if (index == -1) throw EUnpossibal();
 
     return graph[index].edges;
@@ -119,13 +119,13 @@ int Graph::order()
 
 int Graph::degree(int id)
 {
-    int index = find_vertex(id);
+    int index = has_vertex(id);
     if (index == -1) throw EUnpossibal();
 
     int count = 0;
     for (auto i = graph.begin(); i != graph.end(); i++)
     {
-        if (find_edge(i->id, index))
+        if (has_edge(i->id, index))
             count++;
     }
     return count;
@@ -138,7 +138,7 @@ void Graph::exp(vector<int>& result)
     if (result.size() == 0) return;
     for (i = result.end() - 1; i != result.begin(); i--)
     {
-        if (!find_edge(*(i - 1), *i))
+        if (!has_edge(*(i - 1), *i))
             result.erase(i - 1);
     }
     return;
@@ -155,9 +155,9 @@ vector<Vertex> Graph::create_mat()
     {
         for (auto j = w.begin(); j != w.end(); j++)
         {
-            if (find_edge(i->id, j->id))
+            if (has_edge(i->id, j->id))
             {
-                for (auto k = graph[find_vertex(i->id)].edges.begin(); k != graph[find_vertex(i->id)].edges.end(); k++)
+                for (auto k = graph[has_vertex(i->id)].edges.begin(); k != graph[has_vertex(i->id)].edges.end(); k++)
                 {
                     if (k->id == j->id)
                     {
@@ -178,8 +178,8 @@ vector<Vertex> Graph::create_mat()
 
 vector<int> Graph::shortest_path(int from, int to, int& weight)
 {
-    int i_from = find_vertex(from);
-    int i_to = find_vertex(to);
+    int i_from = has_vertex(from);
+    int i_to = has_vertex(to);
     if (i_from == -1) throw EUnpossibal();
     if (i_to == -1) throw EUnpossibal();
     if (i_to == i_from) throw EUnpossibal();
@@ -206,13 +206,13 @@ void Graph::clean_color()
 
 void Graph::walk(int from)
 {
-    int index = find_vertex(from);
+    int index = has_vertex(from);
     if (index == -1) throw EUncorrectIndex();
     cout << graph[index].id;
     graph[index].color = 1;
     for (auto i = graph[index].edges.begin(); i != graph[index].edges.end(); i++)
     {
-        int tmp = find_vertex(i->id);
+        int tmp = has_vertex(i->id);
         if (graph[tmp].color == 0)
         {
             cout << " -> ";
@@ -281,7 +281,7 @@ int Graph::emergency()
         }
         for (auto j = graph.begin(); j != graph.end(); j++)
         {
-            if (find_edge(j->id, i->id))
+            if (has_edge(j->id, i->id))
                 sum += j->edges[find_index_edge(j->id, i->id)].weight;
         }
         if (max < sum)
